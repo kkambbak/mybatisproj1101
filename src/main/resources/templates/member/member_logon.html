@@ -1,0 +1,56 @@
+{{>layout/header}}
+<body>
+	<form name="myform" id="myform"> 
+	
+{{>layout/nav}}
+
+<div class="container mt-3">
+  <h1>로그인</h1>
+
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" id="user_id" placeholder="아이디">
+  </div>
+
+  <div class="input-group mb-3">
+    <input type="password" class="form-control" id="password" placeholder="페스워드">
+  </div>
+
+
+  
+  	<div class="container" style="text-align:right">
+	 
+	  <div class="btn-group">
+	    
+       <button type="button" class="btn btn-primary" id="btnLogon">로그온</button>&nbsp;&nbsp;
+      
+	    <button type="button" class="btn btn-primary" onclick="goCancel()">취소</button>&nbsp;&nbsp;
+	  </div>
+	</div>
+</form>	
+</div>
+
+</body>
+</html>
+
+<script>
+$(()=>{
+	$("#btnLogon").click(()=>{
+		$.ajax({
+			url:"/member/logonproc", 
+			data:{user_id:$("#user_id").val(), password:$("#password").val()},
+			dataType:"json",
+			method:"post"
+		})
+		.done( (res)=>{
+			console.log( res );
+			if( res.result=="1")
+			{
+				location.href="/"; //index페이지로 이동 
+			}
+		})	
+		.fail((res, error, status)=>{
+			console.log(error)
+		})
+	});	
+})
+</script>
