@@ -1,0 +1,84 @@
+
+{{>layout/header}}
+<body>
+	<form name="myform" id="myform"> 
+	
+{{>layout/nav}}
+
+    <div class="container" style="margin-top:80px">
+        <h2>게시판 목록</h2>
+
+        <div class="input-group mb-3" style="margin-top:20px;">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                선택하세요
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">제목</a></li>
+              <li><a class="dropdown-item" href="#">내용</a></li>
+              <li><a class="dropdown-item" href="#">제목+내용</a></li>
+            </ul>
+            <input type="text" class="form-control" placeholder="Search">
+            <button class="btn btn-secondary" type="submit">Go</button>
+          </div>
+
+        <table class="table table-hover ">
+			<colgroup>
+				<col width="8%"/>
+				<col width="*"/>
+				<col width="12%"/>
+				<col width="12%"/>
+				<col width="8%"/>
+			</colgroup>
+			
+            <thead class="table-secondary">
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+              </tr>
+            </thead>
+            <tbody>
+				{{#boardList}}
+              <tr>
+				  <td>{{rnum}}</td>
+				  <td><a href="/board/view/{{seq}}">{{title}}</a></td>
+				  <td>{{writer}}</td>
+				  <td>{{wdate}}</td>
+				  <td>{{hit}}</td>
+              </tr>              
+               {{/boardList}}
+           
+            </tbody>
+          </table>
+
+ 
+          <ul class="pagination  justify-content-center">
+			  {{{page}}}
+          </ul>
+       
+          <div class="container mt-3" style="text-align:right;">
+            <a href="#" class="btn btn-secondary">Link Button</a>
+           </div>     
+           <br/><br/><br/>   
+    </div>
+   </form>
+   
+</body>
+</html>
+
+<script>
+	function goPage(pg)
+	{
+		//document.getElementById("pg").value=pg;
+		frm = document.myform; 
+		frm.method="get";
+		frm.action="/board/list/"+pg;
+		frm.submit();
+	}
+</script>
+
+
+
+
